@@ -1,4 +1,4 @@
-INSERT INTO `hw2 test`.`people` (name, email, phone, username, password) VALUES
+INSERT INTO `people` (name, email, phone, username, password) VALUES
 ('Davit Pheikrishvili', 'davit.pheikr@gmail.com', '555-0001', 'davitp', 'password1'),
 ('Ana Naveriani', 'ana@example.com', '555-0002', 'anan', 'password2'),
 ('Alexandre Kutateladze', 'alexandre@example.com', '555-0003', 'alexk', 'password3'),

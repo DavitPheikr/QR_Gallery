@@ -1,4 +1,4 @@
-INSERT INTO `hw2 test`.`users` (person_id, current_location_id, status_uploaded) VALUES
+INSERT INTO `users` (person_id, current_location_id, status_uploaded) VALUES
 (1, 1, 0),
 (2, 1, 1),
 (3, 2, 2),

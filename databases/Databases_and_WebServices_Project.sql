@@ -5,7 +5,7 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema my
+-- Schema mydb
 -- -----------------------------------------------------
 -- -----------------------------------------------------
 -- Schema hw2 test
@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `hw2 test`.`people` (
   UNIQUE INDEX `phone_UNIQUE` (`phone` ASC) VISIBLE,
   UNIQUE INDEX `person_id_UNIQUE` (`person_id` ASC) VISIBLE)
 ENGINE = InnoDB
+AUTO_INCREMENT = 17
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -57,7 +58,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `hw2 test`.`Administration` (
   `person_id` INT NOT NULL,
-  `admin_id` VARCHAR(50) NOT NULL,
+  `employee_id` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`person_id`),
   CONSTRAINT `Administration_ibfk_1`
     FOREIGN KEY (`person_id`)
@@ -113,34 +114,16 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `hw2 test`.`QR`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `hw2 test`.`QR` (
-  `id_QR` INT NOT NULL AUTO_INCREMENT,
-  `location_id` INT NOT NULL,
-  PRIMARY KEY (`id_QR`),
-  UNIQUE INDEX `location_id` (`location_id` ASC) VISIBLE,
-  CONSTRAINT `QR_ibfk_1`
-    FOREIGN KEY (`location_id`)
-    REFERENCES `hw2 test`.`Location` (`id_Location`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
 -- Table `hw2 test`.`Location`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `hw2 test`.`Location` (
-  `id_Location` INT NOT NULL,
+  `id_location` INT NOT NULL AUTO_INCREMENT,
   `Location_name` VARCHAR(45) NOT NULL,
   `QR_id` INT NOT NULL,
-  PRIMARY KEY (`id_Location`),
-  UNIQUE INDEX `QR_id` (`QR_id` ASC) VISIBLE,
-  CONSTRAINT `fk_qr_code`
-    FOREIGN KEY (`QR_id`)
-    REFERENCES `hw2 test`.`QR` (`id_QR`))
+  PRIMARY KEY (`id_location`),
+  UNIQUE INDEX `QR_id` (`QR_id` ASC) VISIBLE)
 ENGINE = InnoDB
+AUTO_INCREMENT = 5
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -154,9 +137,6 @@ CREATE TABLE IF NOT EXISTS `hw2 test`.`users` (
   `status_uploaded` INT(11) UNSIGNED ZEROFILL NOT NULL,
   PRIMARY KEY (`person_id`),
   INDEX `fr_location` (`current_location_id` ASC) VISIBLE,
-  CONSTRAINT `fr_location`
-    FOREIGN KEY (`current_location_id`)
-    REFERENCES `hw2 test`.`Location` (`id_Location`),
   CONSTRAINT `users_ibfk_1`
     FOREIGN KEY (`person_id`)
     REFERENCES `hw2 test`.`people` (`person_id`))
@@ -169,19 +149,43 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `hw2 test`.`Photos`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `hw2 test`.`Photos` (
-  `idPhotos` INT NOT NULL,
+  `idPhotos` INT NOT NULL AUTO_INCREMENT,
   `upload_date` DATETIME NOT NULL,
   `location_id` INT NOT NULL,
   `user_id` INT NOT NULL,
   PRIMARY KEY (`idPhotos`),
   INDEX `fk_location` (`location_id` ASC) VISIBLE,
   INDEX `fr_user_id` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `fk_location`
+  CONSTRAINT `fk_photos_location`
     FOREIGN KEY (`location_id`)
-    REFERENCES `hw2 test`.`Location` (`id_Location`),
-  CONSTRAINT `fr_user_id`
+    REFERENCES `hw2 test`.`Location` (`id_location`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_photos_users`
     FOREIGN KEY (`user_id`)
-    REFERENCES `hw2 test`.`users` (`person_id`))
+    REFERENCES `hw2 test`.`users` (`person_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `hw2 test`.`QR`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `hw2 test`.`QR` (
+  `qr_id` INT NOT NULL AUTO_INCREMENT,
+  `location_id` INT NOT NULL,
+  `qr_link` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`qr_id`),
+  UNIQUE INDEX `uq_qr_link` (`qr_link` ASC) VISIBLE,
+  INDEX `fk_qr_location` (`location_id` ASC) VISIBLE,
+  CONSTRAINT `fk_qr_location`
+    FOREIGN KEY (`location_id`)
+    REFERENCES `hw2 test`.`Location` (`id_location`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;

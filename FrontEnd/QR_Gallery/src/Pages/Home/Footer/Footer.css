@@ -1,0 +1,22 @@
+.myFooter {
+    margin-left: 300px;
+    margin-right: 300px;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border: 1px solid #AE83E8;
+    border-radius: 12px;
+}
+
+footer p {
+    margin: 3px;
+    color:#fff;
+    font-size: 12px;
+
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+}
+

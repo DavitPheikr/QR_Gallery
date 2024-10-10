@@ -1,0 +1,71 @@
+.about-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;  
+    margin-left: 300px;
+    margin-right: 300px;
+  }
+  
+  .imprint-header {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; 
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+  
+  .myLogo {
+    top: 20px;
+    left: 100px;
+    width: 65px;
+    height: 50px;
+    margin-right: 25px;
+  }
+  
+  .imprint-header h2 {
+    color: white;
+    margin-left: 25px;
+  }
+  
+
+  .about-body-container{
+    display:flex;
+    flex-wrap: wrap;
+    max-width: 10000px;
+    justify-content: space-between;
+    gap: 33px;
+    border: solid #FFCC04;
+    border-width: thin;
+    border-radius: 25px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 40px;
+    width: auto;
+    height: auto;
+    padding-bottom: 30px;
+
+  }
+
+  .person-box{
+    border: solid #AE83E8;
+    border-radius: 18px;
+    width: calc(33.33% - 33px);
+    height: 380px;
+    padding: 10px;
+    border-width: thin;
+
+  }
+
+.imprint-text:nth-child(5) {
+  width: calc(50%); /* 2 boxes on the second row */
+  margin: 0 auto;
+  border: solid #FFCC04;
+  border-radius: 18px;
+  border-width: thin;
+  
+}
+
+

@@ -23,7 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 
+
+#node modules and build files
+
 node_modules/
 dist/
-.env
-.log
+
